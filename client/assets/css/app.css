@@ -1,0 +1,339 @@
+/* grid */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: #333;
+  max-width: 1215px;
+}
+
+section {
+  margin-bottom: 25px;
+}
+
+section:last-child {
+  margin-bottom: 0;
+}
+
+.content {
+  margin-left: 102px;
+  padding: 30px;
+}
+
+.content-header {
+  line-height: 0.82;
+  margin-bottom: 40px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: #eee;
+  padding: 30px 0;
+  z-index: 5;
+}
+
+.inline-box {
+  position: relative;
+  float: left;
+  min-height: 62px;
+  margin-right: 15px;
+}
+
+.spend-stats .inline-box {
+  margin-right: 60px;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+hr {
+  border: 1px solid #eee;
+  margin-top: 2px;
+  margin-bottom: 25px;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0; padding: 0;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2.625rem;
+}
+
+h2 {
+  font-size: 2.34rem;
+}
+
+h3 {
+  font-size: 2.0625rem;
+}
+
+h4 {
+  font-size: 1.78125rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.21875rem;
+}
+
+.sub-heading {
+  font-size: 0.9rem;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+/* line height */
+body {
+  line-height: 1.625;
+}
+
+/* links */
+a {
+  color: #28ABE3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* colors */
+.primary-color {
+  color: #28ABE3;
+}
+
+.secondary-color {
+  color: #1FDA9A;
+}
+
+/* typography */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.accent {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-top: -15px;
+}
+
+/* branding */
+.logo {
+  margin-bottom: 25px;
+}
+
+/* sidebar menu */
+.menu-item {
+  margin: 30px 0;
+}
+
+.menu-item a {
+  color: #333;
+}
+
+.menu-item a:hover {
+  text-decoration: none;
+}
+
+.fa {
+  -webkit-transition: color .3s ease-in-out;
+       -o-transition: color .3s ease-in-out;
+          transition: color .3s ease-in-out;
+}
+
+.fa-hover {
+  color: #1FDA9A;
+  -webkit-transition: color .3s ease-in-out;
+       -o-transition: color .3s ease-in-out;
+          transition: color .3s ease-in-out;
+}
+
+.menu-text {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+/* forms */
+.auth {
+  width: 518px;
+  margin: 0 auto;
+}
+
+.form-inline {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.form-inline.stacked input,
+.form-inline.stacked label {
+  display: block;
+}
+
+.form-group .form-input {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.form-input {
+  font-size: 1rem;
+  padding: 6px 10px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  background-image: none;
+  border: 1px solid #CCC;
+}
+
+section .form-input {
+  margin-right: 10px;
+}
+
+.form-input:focus {
+  border-color: #999;
+  outline: none;
+}
+
+select.form-input {
+  height: 36px;
+}
+
+/* buttons */
+.button {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: normal;
+  height: 36px;
+  padding: 6px 12px;
+  background-color: transparent;
+  border: 1px solid #CCC;
+  color: #333;
+  cursor: pointer;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-transition: border-color .3s ease-in-out;
+       -o-transition: border-color .3s ease-in-out;
+          transition: border-color .3s ease-in-out;
+}
+
+.button:hover {
+  border-color: black;
+  -webkit-transition: border-color .3s ease-in-out;
+       -o-transition: border-color .3s ease-in-out;
+          transition: border-color .3s ease-in-out;
+}
+
+.auth .button {
+  font-size: 1rem;
+  text-transform: none;
+}
+
+.content-header .button {
+  height: 27px;
+  line-height: 0.82rem;
+}
+
+.inline-box .button {
+  position: absolute;
+  bottom: 0;
+}
+
+.warning {
+  border-color: #DB3340;
+}
+
+.action {
+  border-color: #1FDA9A;
+}
+
+/* lists */
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+ul.list-inline {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.list-inline > li {
+  display: inline-block;
+  padding-right: 15px;
+}
+
+.list-inline > li:last-child {
+  padding-right: 0;
+}
+
+/* table */
+table {
+  width: 55%;
+}
+
+table td {
+  padding: 5px;
+}
+
+table tr {
+  border-bottom: 1px solid #eee;
+}
+
+table tr:hover {
+  background-color: #eee;
+}
+
+.table-actions {
+  visibility: hidden;
+}
+
+/* statement report */
+.report {
+  width: 85%;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  background-color: #f8f8f8;
+}
+
+.month-year {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 25px 0;
+}
+
+/* charts */
+.chart {
+  margin-top: 10px;
+}
+
+/* Stats */
+.stat {
+  margin-right: 35px;
+}

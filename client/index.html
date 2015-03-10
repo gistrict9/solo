@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vault</title>
+
+  <!-- CSS -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+  <link href="./assets/css/grid.css" rel="stylesheet">
+  <link href="./assets/css/app.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="app-view">
+        <header class="logo">
+          <img src="assets/images/logo.png" />
+        </header>
+        <section>
+          <form class="form-inline stacked">
+            <div class="inline-box">
+              <label>Income</label>
+              <input type="text" id="income" class="new-expense form-input">
+            </div>
+            <div class="inline-box">
+              <input type="submit" id="change" class="form-input button action" value="Change">
+            </div>
+          </form> 
+        </section>
+        <section>
+          <p class="sub-heading">Statistics</p>
+          <hr>
+          <div class="spend-stats">
+            <div id="income-text" class="inline-box"></div>
+            <div class="inline-box">
+              <div class="stats-text">
+                <h4 class="text-right">2185.00</h4>
+                <div class="accent text-right">Spent</div>
+              </div>
+            </div>
+            <div class="inline-box">
+              <div class="stats-text">
+                <h4 class="text-right">1265.06</h4>
+                <div class="accent text-right">Saved</div>
+              </div>
+            </div>
+          </div>
+          <div style="clear: both;"></div>
+        </section>
+        <section>
+          <p class="sub-heading">Add Expense</p>
+          <hr>
+          <form class="form-inline stacked">
+            <div class="inline-box">
+              <label>Item</label>
+              <input type="text" id="item" class="new-expense form-input" placeholder="Pizza">
+            </div>
+            <div class="inline-box">
+              <label>Amount</label>
+              <input type="number" step="0.01" id="cost" class="form-input" placeholder="0.00">
+            </div>
+            <div class="inline-box">
+              <input type="submit" id="add" class="form-input button action" value="Add">
+            </div>
+          </form>
+        </section>
+        <section>
+            <p class="sub-heading">Expenses</p>
+            <hr>
+            <table id="expenses"></table>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="./libs/jquery/jquery.min.js"></script>
+  <script src="./libs/underscore/underscore.js"></script>
+  <script src="./libs/backbone/backbone.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+
+  <!-- Templates -->
+  <script type="text/template" id="expense-template">
+    <td><%- item %></td> 
+    <td>$<%- cost %></td>
+    <td id="remove">X</td>
+  </script>
+
+  <script type="text/template" id="income-template">
+    <div class="stats-text">
+      <h4 class="text-right"><%- income %></h4>
+      <div class="accent text-right">Income</div>
+    </div>
+  </script>
+
+  <!-- BackboneJS Code -->
+  <script>
+  // Models
+    var Expense = Backbone.Model.extend({
+      defaults: {
+        item: '',
+        cost: null
+      }
+    });
+    var expense = new Expense();
+
+    var Income = Backbone.Model.extend({
+      defaults: {
+        income: 0
+      },
+      localStorage: new Backbone.LocalStorage("income")
+    });
+    var income = new Income();
+
+    // Collections
+    var ExpenseList = Backbone.Collection.extend({
+      model: Expense,
+      localStorage: new Backbone.LocalStorage("expenses")
+    });
+    var expenseList = new ExpenseList();
+
+    // Views
+    var ExpenseView = Backbone.View.extend({
+      tagName: 'tr',
+      template: _.template($('#expense-template').html()),
+
+      events: {
+        'click #remove' : 'removeExpense'
+      },
+
+      removeExpense: function() {
+        $(this.el).remove();
+        this.model.destroy();
+      },
+
+      render: function() {
+        return this.$el.html(this.template(this.model.attributes));
+      }
+    });
+
+    var IncomeView = Backbone.View.extend({
+      el: '#income-text',
+      template: _.template($('#income-template').html()),
+
+      initialize: function() {
+        this.render();
+      },
+
+      render: function() {
+        return this.$el.html(this.template(this.model.attributes));
+      }
+    });
+    var incomeView = new IncomeView({model: income});
+
+    var AppView = Backbone.View.extend({
+      el: '.app-view',
+
+      events: {
+        'click #add' : 'addExpense',
+        'click #change' : 'changeIncome',
+        'submit' : 'handleEvent'
+      },
+
+      initialize: function() {
+        income.on('change', this.appendIncome, this);
+        expenseList.on('add', this.appendExpense, this);
+        expenseList.on('reset', this.addAll, this);
+        expenseList.fetch();
+      },
+
+      changeIncome: function() {
+        var incomeVal = $('#income').val();
+
+        income.set({income: Number(incomeVal)});
+      },
+
+      addExpense: function() {
+        var item = $('#item').val();
+        var cost = $('#cost').val();
+
+        var expense = {
+          'item': item,
+          'cost': Number(cost)
+        };
+
+        expenseList.create(expense);
+      },
+
+      removeExpense: function() {
+        this.model.destroy();
+      },
+
+      appendExpense: function(expense) {
+        var expenseView = new ExpenseView({model: expense});
+        $('table#expenses').append(expenseView.render());
+      },
+
+      appendIncome: function(income) {
+        console.log(income);
+        var incomeView = new IncomeView({model: income});
+        $('#income-text').append(incomeView.render());
+      },
+
+      addAll: function() {
+        this.$('table#expenses').html('');
+        expenseList.each(this.addExpense, this);
+      },
+
+      handleEvent: function(e) {
+        e.preventDefault;
+      }
+    });
+    var appView = new AppView();
+  </script>
+  
+</body>
+</html>

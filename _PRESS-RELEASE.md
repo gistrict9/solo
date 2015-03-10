@@ -1,4 +1,4 @@
-# Project Name #
+# Vault #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -15,30 +15,32 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
- 
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+Vault is an expense tracking application without any bells or whistles.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+Vault is simple by design. It is a ledger. The idea is to track your monthly expenses against your monthly income. At the end of that month, with any luck, you will be able to move some net income into savings. Expenses are not categorized, budgeted or manipulated in any way. 
+
+The goal is simple, have more money than month left over.
 
 ## Problem ##
-  > Describe the problem your product solves.
+Most of us want to move cash flow to savings but don't have a clue what our true expenses are and certainly don't know how much net income, if any, we can move toward savings.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+Vault.
 
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+> "Vault is what's up." -Mike Donahue
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  1. Sign up for Vault
+  2. Navigate to the Users tab to input your monthly income
+  3. Navigate to the Recurring tab to input any ongoing monthly expenses (i.e. Rent, Car Insurance)
+  4. Start adding expenses on the Current tab as you spend money
+  5. Move any extra net income to savings
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "By tracking my expenses, Vault helped me to realize that I can afford a Starbuck's coffee in the morning." -Customer #34538
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+## Contribute ##
+If you would like to contribute to Vault, please submit a detailed pull request.
+

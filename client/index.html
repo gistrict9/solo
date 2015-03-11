@@ -35,12 +35,7 @@
           <hr>
           <div class="spend-stats">
             <div id="income-text" class="inline-box"></div>
-            <div class="inline-box">
-              <div class="stats-text">
-                <h4 class="text-right">2185.00</h4>
-                <div class="accent text-right">Spent</div>
-              </div>
-            </div>
+            <div id="spent-text" class="inline-box"></div>
             <div class="inline-box">
               <div class="stats-text">
                 <h4 class="text-right">1265.06</h4>
@@ -96,6 +91,13 @@
     </div>
   </script>
 
+  <script type="text/template" id="spent-template">
+    <div class="stats-text">
+      <h4 class="text-right"><%- spent %></h4>
+      <div class="accent text-right">Spent</div>
+    </div>
+  </script>
+
   <!-- BackboneJS Code -->
   <script>
   // Models
@@ -109,9 +111,10 @@
 
     var Income = Backbone.Model.extend({
       defaults: {
-        income: 0
-      },
-      localStorage: new Backbone.LocalStorage("income")
+        income: 0,
+        spent: 0,
+        saved: 0
+      }
     });
     var income = new Income();
 
@@ -121,6 +124,12 @@
       localStorage: new Backbone.LocalStorage("expenses")
     });
     var expenseList = new ExpenseList();
+
+    var IncomeItem = Backbone.Collection.extend({
+      model: Income,
+      localStorage: new Backbone.LocalStorage("income")
+    });
+    var incomeItem = new IncomeItem();
 
     // Views
     var ExpenseView = Backbone.View.extend({
@@ -155,6 +164,21 @@
     });
     var incomeView = new IncomeView({model: income});
 
+    var SpentView = Backbone.View.extend({
+      el: '#spent-text',
+      template: _.template($('#spent-template').html()),
+
+      initialize: function() {
+        this.render();
+      },
+
+      render: function() {
+        return this.$el.html(this.template(this.model.attributes));
+      }
+    });
+    var spentView = new SpentView({model: income});
+
+    // AppView
     var AppView = Backbone.View.extend({
       el: '.app-view',
 
@@ -165,16 +189,18 @@
       },
 
       initialize: function() {
-        income.on('change', this.appendIncome, this);
+        incomeItem.on('add', this.updateIncome, this);
         expenseList.on('add', this.appendExpense, this);
         expenseList.on('reset', this.addAll, this);
         expenseList.fetch();
+        incomeItem.fetch();
       },
 
       changeIncome: function() {
         var incomeVal = $('#income').val();
 
-        income.set({income: Number(incomeVal)});
+        incomeItem.create({'income': Number(incomeVal)});
+        $('#income').val('');
       },
 
       addExpense: function() {
@@ -187,6 +213,8 @@
         };
 
         expenseList.create(expense);
+        $('#item').val('');
+        $('#cost').val('');
       },
 
       removeExpense: function() {
@@ -198,8 +226,7 @@
         $('table#expenses').append(expenseView.render());
       },
 
-      appendIncome: function(income) {
-        console.log(income);
+      updateIncome: function(income) {
         var incomeView = new IncomeView({model: income});
         $('#income-text').append(incomeView.render());
       },
@@ -210,7 +237,7 @@
       },
 
       handleEvent: function(e) {
-        e.preventDefault;
+        e.preventDefault();
       }
     });
     var appView = new AppView();
